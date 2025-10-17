@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long reservationId;
+    private Long id;
     private LocalDate reservationDate;
     private String notes;
     @ManyToOne

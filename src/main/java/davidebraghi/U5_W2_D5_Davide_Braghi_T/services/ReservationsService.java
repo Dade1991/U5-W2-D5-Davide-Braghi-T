@@ -5,7 +5,7 @@ import davidebraghi.U5_W2_D5_Davide_Braghi_T.entities.Employee;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.entities.Reservation;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.exceptions.BadRequestException;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.exceptions.NotFoundException;
-import davidebraghi.U5_W2_D5_Davide_Braghi_T.payloads.NewReservationDTO;
+import davidebraghi.U5_W2_D5_Davide_Braghi_T.payloads.Reservations.NewReservationDTO;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.repositories.BusinessTripRepo;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.repositories.EmployeeRepo;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.repositories.ReservationRepo;
@@ -14,9 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-
+@Service
 public class ReservationsService {
     @Autowired
     private ReservationRepo reservationRepo;
@@ -24,12 +24,6 @@ public class ReservationsService {
     private EmployeeRepo employeeRepo;
     @Autowired
     private BusinessTripRepo businessTripRepo;
-
-//    public ReservationsService(ReservationRepo reservationRepo, EmployeeRepo employeeRepo, BusinessTripRepo businessTripRepo){
-//    this.reservationRepo = reservationRepo;
-//    this.employeeRepo = employeeRepo;
-//    this.businessTripRepo = businessTripRepo;
-//    }
 
     // Paginazione // findAll
 
@@ -51,12 +45,12 @@ public class ReservationsService {
 
         BusinessTrip trip = businessTripRepo.findById(body.businessTrip().getBusinessTripId()).orElseThrow(() -> new NotFoundException(body.businessTrip().getBusinessTripId()));
 
-        if (reservationRepo.existsByEmployeeIdAndDate(emp.getEmployeeId(), trip.getDate())) {
+        if (reservationRepo.existsByEmployee_EmployeeIdAndReservationDate(emp.getEmployeeId(), trip.getReservationDate())) {
             throw new BadRequestException("The Employer has been already assigned in this date.");
         }
 
         Reservation reservation = new Reservation();
-        reservation.setReservationDate(LocalDate.now());
+        reservation.setReservationDate(body.reservationDate());
         reservation.setNotes(body.notes());
         reservation.setEmployee(emp);
         reservation.setBusinessTrip(trip);

@@ -18,7 +18,7 @@ public class BusinessTrip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long businessTripId;
     private String destination;
-    private LocalDate date;
+    private LocalDate reservationDate;
     @Enumerated
     private BusinessTripStatus status;
 }

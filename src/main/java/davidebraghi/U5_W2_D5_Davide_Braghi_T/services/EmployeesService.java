@@ -3,16 +3,18 @@ package davidebraghi.U5_W2_D5_Davide_Braghi_T.services;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.entities.Employee;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.exceptions.BadRequestException;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.exceptions.NotFoundException;
-import davidebraghi.U5_W2_D5_Davide_Braghi_T.payloads.NewEmployeeDTO;
+import davidebraghi.U5_W2_D5_Davide_Braghi_T.payloads.Employees.NewEmployeeDTO;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.repositories.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@Service
 public class EmployeesService {
     @Autowired
     private EmployeeRepo employeeRepo;

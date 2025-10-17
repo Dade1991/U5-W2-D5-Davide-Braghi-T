@@ -2,7 +2,7 @@ package davidebraghi.U5_W2_D5_Davide_Braghi_T.services;
 
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.entities.BusinessTrip;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.exceptions.NotFoundException;
-import davidebraghi.U5_W2_D5_Davide_Braghi_T.payloads.NewBusinessTripDTO;
+import davidebraghi.U5_W2_D5_Davide_Braghi_T.payloads.BusinessTrips.NewBusinessTripDTO;
 import davidebraghi.U5_W2_D5_Davide_Braghi_T.repositories.BusinessTripRepo;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class BusinessTripsService {
 
         BusinessTrip newBusinessTrip = new BusinessTrip();
         newBusinessTrip.setDestination(body.destination());
-        newBusinessTrip.setDate(body.date());
+        newBusinessTrip.setReservationDate(body.date());
         newBusinessTrip.setStatus(body.status());
 
         return businessTripRepo.save(newBusinessTrip);
@@ -53,7 +53,7 @@ public class BusinessTripsService {
     public BusinessTrip findByIdAndUpdate(long id, BusinessTrip body) {
         BusinessTrip found = this.findById(id);
         found.setDestination(body.getDestination());
-        found.setDate(body.getDate());
+        found.setReservationDate(body.getReservationDate());
         found.setStatus(body.getStatus());
 
         return businessTripRepo.save(found);
