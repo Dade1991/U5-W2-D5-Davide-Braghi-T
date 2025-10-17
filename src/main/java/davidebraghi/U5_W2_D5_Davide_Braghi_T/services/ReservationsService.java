@@ -41,11 +41,11 @@ public class ReservationsService {
     // Save
 
     public Reservation save(NewReservationDTO body) {
-        Employee emp = employeeRepo.findById(body.employee().getEmployeeId()).orElseThrow(() -> new NotFoundException(body.employee().getEmployeeId()));
+        Employee emp = employeeRepo.findById(body.employee().getId()).orElseThrow(() -> new NotFoundException(body.employee().getId()));
 
         BusinessTrip trip = businessTripRepo.findById(body.businessTrip().getBusinessTripId()).orElseThrow(() -> new NotFoundException(body.businessTrip().getBusinessTripId()));
 
-        if (reservationRepo.existsByEmployee_EmployeeIdAndReservationDate(emp.getEmployeeId(), trip.getReservationDate())) {
+        if (reservationRepo.existsByEmployee_IdAndReservationDate(emp.getId(), trip.getReservationDate())) {
             throw new BadRequestException("The Employer has been already assigned in this date.");
         }
 
@@ -60,7 +60,7 @@ public class ReservationsService {
 
     // findByIdAndUpdate
 
-    public Reservation findByIdAndUpdate(long id, Reservation body) {
+    public Reservation findByIdAndUpdate(Long id, Reservation body) {
         Reservation found = this.findById(id);
         found.setReservationDate(body.getReservationDate());
         found.setNotes(body.getNotes());

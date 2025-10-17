@@ -13,7 +13,7 @@ import lombok.ToString;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long employeeId;
+    private Long id;
     private String username;
     private String surname;
     private String name;

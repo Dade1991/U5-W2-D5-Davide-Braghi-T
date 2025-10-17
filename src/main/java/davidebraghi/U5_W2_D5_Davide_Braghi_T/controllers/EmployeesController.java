@@ -39,7 +39,7 @@ public class EmployeesController {
             throw new BadRequestException(validation.getAllErrors());
         }
         Employee newEmployee = employeesService.save(body);
-        return new NewBusinessTripResponseDTO(newEmployee.getEmployeeId());
+        return new NewBusinessTripResponseDTO(newEmployee.getId());
     }
 
     // GET http://localhost:3001/employees/{id}
